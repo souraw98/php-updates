@@ -6,16 +6,28 @@ require_once __DIR__.'/DB.php';
 class Query extends DB{
 	
 	public $sql;
-	
+	private $rs;
+	private $lastpk_id = 0;
+	private $data;
+
 	public function insert($tablename,$formdata=[]){
-		
 	$columns = implode(",",array_keys($formdata));
 	$values = implode("','",array_values($formdata));
-	
 	$SQL = "INSERT INTO {$tablename}($columns) values('$values');";
 	$this->sql = $SQL;
-	return $this;
+	if($this->runQuery()){
+		$this->lastpk_id = mysqli_insert_id($this->getConnection());
+		return true;
+	}else{
+		return false;
 	}
+	
+	}
+
+	public function getId(){
+		return $this->lastpk_id;
+	}
+
 	public function getQuery(){
 		return $this->sql;
 	}	
@@ -93,47 +105,136 @@ public function TRUNCATE($tablename){
 }
 
 
+public function toArray(){
+	return  json_decode(json_encode($this->data),true);
+}
+
+public function allRecords(){
+	if($this->runQuery()){
+		$data = array();
+		while($row = mysqli_fetch_object($this->rs)){
+			$data[] = $row;
+	   }
+	   $this->data = $data;
+	   return $data;
+	}
+	return false;
+	
+}
+
+public function commit(){
+	if($this->runQuery()){
+		return true;
+	}else{
+		return false;
+	}
+}
+
+public function first(){
+	if($this->runQuery()){
+		$data = array();
+		while($row = mysqli_fetch_object($this->rs)){
+			$data[] = $row;
+	   }
+	   $this->data = $data[0];
+	   return $data[0];
+	}
+	return false;
+	
+}
+
+public function next(){
+	if($this->runQuery()){
+		$data = array();
+		while($row = mysqli_fetch_object($this->rs)){
+			$data[] = $row;
+	   }
+	   $this->data = $data[1];
+	   return $data[1];
+	}
+	return false;
+	
+}
+
+public function orderBy($key='id',$order='asc'){
+	$this->sql = $this->sql." ORDER BY $key $order";
+	$this->sql = $this->sql;
+	return $this;
+}
+public function limit($limit,$offset='0'){
+	$this->sql = $this->sql." LIMIT $offset,$limit";
+	$this->sql = $this->sql;
+	return $this;
+}
+
+public function last(){
+	if($this->runQuery()){
+		$data = array();
+		while($row = mysqli_fetch_object($this->rs)){
+			$data[] = $row;
+	   }
+	   $this->data = $data[count($data)-1];
+	   return $data[count($data)-1];
+	}
+	return false;
+	
+}
+public function row($i){
+	if($this->runQuery()){
+		$data = array();
+		while($row = mysqli_fetch_object($this->rs)){
+			$data[] = $row;
+	   }
+	   $this->data = $data[$i];
+	   return $data[$i];
+	}
+	return false;
+	
+}
+private function runQuery(){
+
+$result_set = mysqli_query($this->getConnection(),$this->sql) or die(mysqli_error($this->getConnection()));
+
+if(is_object($result_set)){
+	if(mysqli_num_rows($result_set)>0){
+		$this->rs = $result_set;
+		return true;
+	}else{
+		return false;
+	}
+}else{
+	$count = mysqli_affected_rows($this->getConnection());
+	if($count>0){
+		return true;
+	}else{
+		return false;
+	}
+}
+
+}
+
+
 }
 
 $query = new Query();
-echo $query->insert('emp',[
+echo PHP_EOL;
 
-	'name'=>'awnish',
-	'email'=>'awnish@gmail.com',
-	'password'=>1234,
-	'mobile'=>'8299502081',
-	'dob'=>'16-feb-1996'
-	
-])->getQuery();
+#$query->insert('emp',['name'=>'pushpa','email'=>'puspa@gmail.com']);
 
-echo PHP_EOL;
-echo $query->select('name,class,email')->table('emp')->getQuery();
-echo PHP_EOL;
-echo $query->select()->table('emp')->getQuery();
-echo PHP_EOL;
-echo $query->select('name as n,class as c,email as e,count(*) as cnt,distinct')->table('emp')->getQuery();
-echo PHP_EOL;
-echo $query->select('id,name,email')->table('emp')->where('email','awi@gmail.com')->getQuery();
-echo PHP_EOL;
-echo $query->select('id,name,email')->table('emp')->where('email','!=','awi@gmail.com')->getQuery();
-echo PHP_EOL;
-echo $query->select('id,name,email')->table('emp')->where('salary','>','10000')->getQuery();
-echo PHP_EOL;
-echo $query->select('email,password')
-	->table('emp')
-	->where(['email'=>'awnish@gmail.com','password'=>'1234','status'=>'active'])->getQuery();
+// $query->update('emp',[
+// 	'name'=>'pusparaj Iyyer',
+// 	'email'=>'blahblah@gmail.com'
+// ])->where('id',35)->commit();
+
+
+$query->delete('emp')->where('id',35)->commit();
 
 echo PHP_EOL;
-echo PHP_EOL;
-echo $query->update('emp',[
-	'id'=>'1002',
-	'name'=>'ravi',
-	'marks'=>'100'
-])->where('id',1001)->getQuery();
 
-echo PHP_EOL;
-echo $query->delete('emp')->where('id',1002)->getQuery();
-echo PHP_EOL;
-echo $query->delete('emp')->getQuery();
-echo PHP_EOL;
-echo $query->truncate('emp')->getQuery();
+$query->select('id,name,email')->table('emp')->orderBy('id','asc')->limit(5,8)->allrecords();
+var_dump($query->toArray());
+
+
+
+
+
