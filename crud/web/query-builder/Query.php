@@ -215,9 +215,3 @@ if(is_object($result_set)){
 
 
 }
-
-
-
-
-
-

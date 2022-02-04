@@ -1,16 +1,13 @@
 <?php include_once __DIR__.'/query-builder/Query.php';
 include_once __DIR__.'/functions.php';
-
 $query = new Query();
 $records = $query->select('*')->table('emp')->allRecords();
-
 ?>
 
 <html>
 <head>
     <title>Show Records</title>
 </head>
-
 <body>
     <table style="width:100%" rules="all" border="1">
         <tr>
@@ -32,11 +29,8 @@ $records = $query->select('*')->table('emp')->allRecords();
                 <td><a href="<?php echo url("edit-2.php?id={$row->id}"); ?>">Edit-2</a></td>
                 <td><a href="<?php echo url("delete-1.php?id={$row->id}"); ?>">Delete-1</a></td>
                 <td><a href="javascript:confirmDelete('<?php echo $row->id?>');">Delete 2</a></td>
-
-            </tr>
+        </tr>
         <?php endforeach; ?>
-        
-        
     </table>
     <script>
 
@@ -45,8 +39,6 @@ $records = $query->select('*')->table('emp')->allRecords();
                     window.location.href="<?php echo url('delete-2.php?id=')?>"+id;
                 }
             }
-    </script>
-
+        </script>
 </body>
-
 </html>
