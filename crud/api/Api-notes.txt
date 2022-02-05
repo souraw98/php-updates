@@ -111,6 +111,96 @@ Request : HEAD
 
 
 what is Postman?.
-
+postman is a client tool to send the pure http request to the Server.
+and testing Api's.
+postman has set of http method to Intersepct the REST API, by using GET,POST,PUT,PATCH,DELETE...
+and also has different payloads which can be binded as header, and body content.
 
 What is difference B/w REST & SOAP?.
+1. Rest : Respresentational State Transfer
+1. Soap : Simple Object Access Protocol
+
+2. Rest : uses lower Bandwith
+2. Soap : uses higher Bandwith
+
+3. Rest : its follows web-standards related http protocol  
+3. Soap : its follow xml structure and conventions, based on Envelope and web standards.
+	   
+4. Rest : lower security 
+4. Soap : Higher Security
+
+5. Rest : Easy to handle, easy to deserialise and serialise
+5. Soap : Very difficult to handle,
+
+6. Rest : data representation is in Json,yml
+6. Soap : data representation is in XML
+
+Api Related Terms:-
+1. http method : these are set of method which are defined to perform some 
+unique Operation
+In Rest Api 
+http methods are equivalent DB Operation
+
+C : create the data HTTP/1.1 POST
+R : read the data HTTP/1.1 GET
+U : update the data HTTP/1.1 PUT AND PATCH
+	PUT : full update
+	PATCH : partial update
+D : Delete the data  HTTP/1.1 DELETE
+
+
+HTTP has two version 1.1 and 2.1
+headers:- are the type of payload(information) attached to request before data.
+
+	headers can contain information like, http satus :200, or 404, 500
+	header has content Information like content-type:text/html content-type:
+	application/json, content-type:Image/jpeg all these are called MIME types.
+	header has allowed methods : GET,POST,...
+	headers can be used to check if request are Authentic or not
+	headers can be used to enable cors policy (content origin request security policy)
+
+Body Content : it refers to form data, supplied from form, or any client like postman
+		Types of Body data
+			1. formdata : form
+        		2. urlencoded data
+        		3. www-encoded data
+			4. raw data : Json 
+
+
+How to Api in PHP?
+******************
+
+ 
+
+
+
+				 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
