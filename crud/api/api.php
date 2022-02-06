@@ -2,7 +2,8 @@
 require_once __DIR__.'/query-builder/Query.php';
 require_once __DIR__.'/functions.php';
 
-$request_type = $_SERVER['REQUEST_METHOD'];
+$request_type = handle_request();   
+
 $params = explode('/',$_SERVER['REQUEST_URI']);
 $resource = @$params[count(@$params)-2];
 $id = @$params[count(@$params)-1];
@@ -15,7 +16,7 @@ case 'POST':
      process_post();
      break;
 case 'PUT':
-     process_put();
+     process_put($id);
      break;
 case 'PATCH':
      process_patch();
@@ -68,16 +69,96 @@ exit();
 
 
 function process_post(){
+     global $resource;
+
+     $formdata = $_REQUEST;
+     if(isset($formdata)){
+          $query = new Query();
+
+          try{
+               if($query->insert($resource,$formdata)){
+                    $id = $query->getId();
+                    
+                    $response = array(
+                         'code'=>200,
+                         'status'=>true,
+                         'message'=>'Record Inserted Successfully.',
+                         'error'=> false,
+                         'data'=> [
+                              'id' => $id
+                         ],
+                    );
+               }else{
+                     throw new Exception;
+               }
+          }catch(Exception $e){
+               $response = array(
+                    'code'=>201,
+                    'status'=>false,
+                    'message'=>'Cannot Insert Record.',
+                    'error'=>$e->getMessage(),
+                    'data'=>[]
+               );
+          }
+          
+          header("Content-Type:application/json");
+          http_response_code(200);
+          echo json_encode($response,JSON_PRETTY_PRINT);
+          exit();
+     }
 
 
-echo 'post request';
+
 }
 
 
-function process_put(){
+function process_put($id){
+global $resource;
+     $formdata = $_REQUEST;
+     $query= new Query();
 
-echo 'put request';
+     try{
+          if($query->update($resource,$formdata)->where('id',$id)->commit())
+     {
+          $response = array(
+               'code'=>200,
+               'status'=>true,
+               'message'=>'Record Updated Successfully.',
+               'error'=> false,
+               'data'=> [
+                    'id' => $id,
+                    'name'=>$formdata['name'],
+                    'email'=>$formdata['email']
+               ],
+          );
+     }
+     else{
+          throw new Exception();
+          
+     }
+          
+     }
+     catch(Exception $e){
+          $response = array(
+               'code'=>201,
+               'status'=>false,
+               'message'=>'Record Updated not  Successfully.',
+               'error'=> $e->getMessage(),
+               'data'=> []
+          );
+          
+     }
+     
+
+
+     header("Content-Type:application/json");
+     http_response_code(200);
+     echo json_encode($response,JSON_PRETTY_PRINT);
+     exit();
 }
+
+
+
 
 function process_patch(){
 

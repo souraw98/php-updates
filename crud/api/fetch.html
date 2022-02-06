@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<table border="1" width="100%">
+<table border="1" width="100%" style="text-align: center;">
     <tr>
         <th>id</th>
         <th>name</th>
@@ -19,7 +19,7 @@
 </table>
 
 <script>    
-    fetch("http://localhost:7000/api.php/emp").then((response)=>{
+    fetch("http://localhost:7000/api.php/emp/").then((response)=>{
         return response.json();
     }).then((data)=>{
         if(data.status==true && data.code==200){

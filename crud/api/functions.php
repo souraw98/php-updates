@@ -41,4 +41,28 @@ function get($key='')
     return $_GET[$key];
 }
 
+function handle_request(){
+
+
+    if(@$_SERVER['HTTP_CONTENT_TYPE']=='text/plain'){
+        //echo 'data sent again raw data <br/->';
+    }else{
+        //echo 'data sent from form data <br/>';
+        if($_SERVER['REQUEST_METHOD']=='POST' and array_key_exists('_method',$_POST)){
+                $_SERVER['REQUEST_METHOD'] = $_POST['_method'];
+                unset($_POST['_method']);
+                unset($_REQUEST['_method']);
+                unset($_GET['_method']);
+                return $_SERVER['REQUEST_METHOD'];
+        }else if($_SERVER['REQUEST_METHOD']=='GET'){
+            return $_SERVER['REQUEST_METHOD'];
+        }else{
+            exit('Invalid Request Type Add _method to Allow Request');
+        }
+    }
+
+     
+
+
+}
 ?>
