@@ -43,7 +43,6 @@ function get($key='')
 
 function handle_request(){
 
-
     if(@$_SERVER['HTTP_CONTENT_TYPE']=='text/plain'){
         //echo 'data sent again raw data <br/->';
     }else{
@@ -56,6 +55,8 @@ function handle_request(){
                 return $_SERVER['REQUEST_METHOD'];
         }else if($_SERVER['REQUEST_METHOD']=='GET'){
             return $_SERVER['REQUEST_METHOD'];
+        }else if($_SERVER['REQUEST_METHOD']=='POST'){
+            return $_SERVER['REQUEST_METHOD'];
         }else{
             exit('Invalid Request Type Add _method to Allow Request');
         }
@@ -64,5 +65,12 @@ function handle_request(){
      
 
 
+}
+
+
+function http_raw(){
+
+    $data = json_decode(file_get_contents("php://input"),true);
+    return $data;
 }
 ?>

@@ -2,7 +2,7 @@
 require_once __DIR__.'/query-builder/Query.php';
 require_once __DIR__.'/functions.php';
 
-$request_type = handle_request();   
+$request_type = $_SERVER['REQUEST_METHOD'];   
 
 $params = explode('/',$_SERVER['REQUEST_URI']);
 $resource = @$params[count(@$params)-2];
@@ -71,7 +71,8 @@ exit();
 function process_post(){
      global $resource;
 
-     $formdata = $_REQUEST;
+     $formdata = http_raw();
+
      if(isset($formdata)){
           $query = new Query();
 
@@ -114,7 +115,7 @@ function process_post(){
 
 function process_put($id){
      global $resource;
-     $formdata = $_REQUEST;
+     $formdata = http_raw();
      $query= new Query();
 
      try{

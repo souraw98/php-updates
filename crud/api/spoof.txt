@@ -14,5 +14,13 @@ delete => data raw ---> Raw Request : DELETE
 
 formdata = PUT => method : post and _method = PUT => data :formdata
 
+2. JWT:- Json web token
+3. why is by default expiry time of jwt ? 20 Minute.
+4. What is use Token ?
+    for Authentication Purpose.
+
+
+    
+
 
 
