@@ -6,36 +6,32 @@ header("Content-Type:application/json");
 http_response_code(200);
 
 if($_SERVER['REQUEST_METHOD']=='POST'){
+
+$id = post('id');
 $query = new Query();
 
-if($query->insert('emp',[
-    'name'=>post('name'),
-    'email'=>post('email'),
-])){
-    $id= $query->getId();
+if($query->delete('emp')->where('id',$id)->commit()){
     
 $response = array(
     'code'=>200,
     'status'=>true,
-    'message'=>'Record Inserted Successfully',
+    'message'=>'Record Deleted Successfully',
     'error'=>false,
-    'data'=>[
-        'id'=>$id
-    ],
+    'data'=>[]
 );
 
 }else{
     $response = array(
         'code'=>201,
         'status'=>false,
-        'message'=>'No Records Found',
+        'message'=>'Cannot Delete Record !!!',
         'error'=>false,
         'data'=>[],
     );
 }
 
-
 }else{
+
     $response = array(
         'code'=>201,
         'status'=>false,
