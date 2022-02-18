@@ -1,0 +1,49 @@
+What is session and cookie?
+***************************
+
+1. When ever we visit a website, we are asked to, accept the cookies..?
+
+    there are two states of website
+	1. loginned In
+		1. Item add to cart : user_id
+	2. Guest State.
+		2. Item Add to cart , wish List ---> Guest_id
+		
+		In order to uniquely Identify the user, 
+		server will store few information on your client(Browser)
+		This data stored in browser is stored in form cookie.
+		cookie is a small file stored in the Browser with some
+		data to identify the user uniquely, these information can be Anything.
+		
+2. What is session ?
+   *******************
+
+	session is a data that, can be encrypted or not, which stored on the 
+	server side rather than saving at cleint side.
+	
+	session works like token system, when users logs in any website
+	user is given a unique token of 14-digit (variable in length)
+	for a perticular time.(1440 seconds) 24 Minute.
+	
+	session will get stored in tmp folder for the server
+	sess_w2e3r4t5y64r1qw2 : filename
+		|
+		|..some data : serialised data. {data:i:1234|s:9:awnish}
+		
+	each time when user come, the server going to ask for token,
+	if token matched remain here, if not logged Out and will ask you
+	re-login and get the token(session) once the user is valid,
+	it will give one copy the token to you and other will be stored at server side one given to you will stored in the browser side cookie
+	called PHPSESSID.
+		
+	
+	
+		
+		
+		
+		
+		
+		
+		
+		
+	
