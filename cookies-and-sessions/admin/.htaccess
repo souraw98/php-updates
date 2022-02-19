@@ -1,0 +1,3 @@
+RewriteEngine On
+php_value auto_prepend_file 'middleware/SecureSession.php'
+Options -Indexes

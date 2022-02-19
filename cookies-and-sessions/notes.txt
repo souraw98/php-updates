@@ -36,9 +36,63 @@ What is session and cookie?
 	it will give one copy the token to you and other will be stored at server side one given to you will stored in the browser side cookie
 	called PHPSESSID.
 		
+Session is a type of transaction.
+Every Transaction has a start and end.
+session_start() : transaction start 
+Note, every time you deal, with session we have to set up
+transaction.
+if transaction is done
+we use session_destroy() : to End transaction.
+
+	sess_kc0mtb9p07p7e1a0hquoiufreg
+	PHPSESSID
 	
-	
-		
+How to set the session data 
+*****************************
+$_SESSION['key]='value';
+
+How to get the session data
+*****************************
+$varaible_name = $_SESSION['Key'];
+
+How to destroy the session
+**************************
+1. session_destroy() : destroys the session transaction,
+   file sess_id deleted from server tmp folder and cookie is 
+	also deleted.
+
+2. session_unset() : it unset the serialised data of the session_id
+3. unset() : delete the scope of the varaible from the memory.
+
+
+How can you change the php.ini without touching
+********************************************
+ini_set('key','value');
+for eg:
+session.name = 'PHPSESSID'
+ini_set('session.name','mysessionId');
+
+session.save_path = 'c:/laragon/tmp'
+ini_set('session.save_path','d:/xyz/tmp');
+
+session.type = 'files'
+ini_set('session.files','database');
+
+How to get encrypted Id:-
+session_id(); sess_kc0mtb9p07p7e1a0hquoiufreg
+kc0mtb9p07p7e1a0hquoiufreg
+
+How to regenerate session_id
+******************************
+session_regenerate_id() : renegrate the Id if stolen, 
+is attack session hijacking/session fixation.
+
+
+
+
+
+
+
 		
 		
 		
