@@ -1,0 +1,135 @@
+{
+"problems": [{
+    "Diabetes":[{
+        "medications":[{
+            "medicationsClasses":[{
+                "className1":[{
+                    "associatedDrug#1":[{
+                        "name":"asprin1",
+                        "dose":"2 Time",
+                        "strength":"500 mg"
+                    }],
+                    "associatedDrug#2":[{
+                        "name":"somethingElse1",
+                        "dose":"1 Time",
+                        "strength":"1500 mg"
+                    }]
+                }],
+                "className2":[{
+                    "associatedDrug#1":[{
+                        "name":"asprin2",
+                        "dose":"3 Time",
+                        "strength":"500 mg"
+                    }],
+                    "associatedDrug#2":[{
+                        "name":"somethingElse2",
+                        "dose":"2 Time",
+                        "strength":"2500 mg"
+                    }]
+                }]
+            }]
+        }],
+        "labs":[{
+            "missing_field": "missing_value"
+        }]
+    }],
+    "Asthma":[{
+        "medications":[{
+            "medicationsClasses":[{
+                "className1":[{
+                    "associatedDrug#1":[{
+                        "name":"asprin1",
+                        "dose":"2 Time",
+                        "strength":"500 mg"
+                    }],
+                    "associatedDrug#2":[{
+                        "name":"somethingElse1",
+                        "dose":"1 Time",
+                        "strength":"1500 mg"
+                    }]
+                }],
+                "className2":[{
+                    "associatedDrug#1":[{
+                        "name":"asprin2",
+                        "dose":"3 Time",
+                        "strength":"500 mg"
+                    }],
+                    "associatedDrug#2":[{
+                        "name":"somethingElse2",
+                        "dose":"2 Time",
+                        "strength":"2500 mg"
+                    }]
+                }]
+            }]
+        }],
+        "labs":[{
+            "missing_field": "missing_value"
+        }]
+    }],
+    "Hepatitus":[{
+        "medications":[{
+            "medicationsClasses":[{
+                "className1":[{
+                    "associatedDrug#1":[{
+                        "name":"asprin1",
+                        "dose":"2 Time",
+                        "strength":"500 mg"
+                    }],
+                    "associatedDrug#2":[{
+                        "name":"somethingElse1",
+                        "dose":"1 Time",
+                        "strength":"1500 mg"
+                    }]
+                }],
+                "className2":[{
+                    "associatedDrug#1":[{
+                        "name":"asprin2",
+                        "dose":"3 Time",
+                        "strength":"500 mg"
+                    }],
+                    "associatedDrug#2":[{
+                        "name":"somethingElse2",
+                        "dose":"2 Time",
+                        "strength":"2500 mg"
+                    }]
+                }]
+            }]
+        }],
+        "labs":[{
+            "missing_field": "missing_value"
+        }]
+    }],
+    "Sightness":[{
+        "medications":[{
+            "medicationsClasses":[{
+                "className1":[{
+                    "associatedDrug#1":[{
+                        "name":"asprin1",
+                        "dose":"2 Time",
+                        "strength":"500 mg"
+                    }],
+                    "associatedDrug#2":[{
+                        "name":"somethingElse1",
+                        "dose":"1 Time",
+                        "strength":"1500 mg"
+                    }]
+                }],
+                "className2":[{
+                    "associatedDrug#1":[{
+                        "name":"asprin2",
+                        "dose":"3 Time",
+                        "strength":"500 mg"
+                    }],
+                    "associatedDrug#2":[{
+                        "name":"somethingElse2",
+                        "dose":"2 Time",
+                        "strength":"2500 mg"
+                    }]
+                }]
+            }]
+        }],
+        "labs":[{
+            "missing_field": "missing_value"
+        }]
+    }]
+}]}

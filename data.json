@@ -1,0 +1,273 @@
+
+# How to Parse Json to Html Table
+ 
+{
+"problems": [{
+    "Diabetes":[{
+        "medications":[{
+            "medicationsClasses":[{
+                "className1":[{
+                    "associatedDrug#1":[{
+                        "name":"asprin1",
+                        "dose":"2 Time",
+                        "strength":"500 mg"
+                    }],
+                    "associatedDrug#2":[{
+                        "name":"somethingElse1",
+                        "dose":"1 Time",
+                        "strength":"1500 mg"
+                    }]
+                }],
+                "className2":[{
+                    "associatedDrug#1":[{
+                        "name":"asprin2",
+                        "dose":"3 Time",
+                        "strength":"500 mg"
+                    }],
+                    "associatedDrug#2":[{
+                        "name":"somethingElse2",
+                        "dose":"2 Time",
+                        "strength":"2500 mg"
+                    }]
+                }]
+            }]
+        }],
+        "labs":[{
+            "missing_field": "missing_value"
+        }]
+    }],
+    "Asthma":[{
+        "medications":[{
+            "medicationsClasses":[{
+                "className1":[{
+                    "associatedDrug#1":[{
+                        "name":"asprin1",
+                        "dose":"2 Time",
+                        "strength":"500 mg"
+                    }],
+                    "associatedDrug#2":[{
+                        "name":"somethingElse1",
+                        "dose":"1 Time",
+                        "strength":"1500 mg"
+                    }]
+                }],
+                "className2":[{
+                    "associatedDrug#1":[{
+                        "name":"asprin2",
+                        "dose":"3 Time",
+                        "strength":"500 mg"
+                    }],
+                    "associatedDrug#2":[{
+                        "name":"somethingElse2",
+                        "dose":"2 Time",
+                        "strength":"2500 mg"
+                    }]
+                }]
+            }]
+        }],
+        "labs":[{
+            "missing_field": "missing_value"
+        }]
+    }],
+    "Hepatitus":[{
+        "medications":[{
+            "medicationsClasses":[{
+                "className1":[{
+                    "associatedDrug#1":[{
+                        "name":"asprin1",
+                        "dose":"2 Time",
+                        "strength":"500 mg"
+                    }],
+                    "associatedDrug#2":[{
+                        "name":"somethingElse1",
+                        "dose":"1 Time",
+                        "strength":"1500 mg"
+                    }]
+                }],
+                "className2":[{
+                    "associatedDrug#1":[{
+                        "name":"asprin2",
+                        "dose":"3 Time",
+                        "strength":"500 mg"
+                    }],
+                    "associatedDrug#2":[{
+                        "name":"somethingElse2",
+                        "dose":"2 Time",
+                        "strength":"2500 mg"
+                    }]
+                }]
+            }]
+        }],
+        "labs":[{
+            "missing_field": "missing_value"
+        }]
+    }],
+    "Sightness":[{
+        "medications":[{
+            "medicationsClasses":[{
+                "className1":[{
+                    "associatedDrug#1":[{
+                        "name":"asprin1",
+                        "dose":"2 Time",
+                        "strength":"500 mg"
+                    }],
+                    "associatedDrug#2":[{
+                        "name":"somethingElse1",
+                        "dose":"1 Time",
+                        "strength":"1500 mg"
+                    }]
+                }],
+                "className2":[{
+                    "associatedDrug#1":[{
+                        "name":"asprin2",
+                        "dose":"3 Time",
+                        "strength":"500 mg"
+                    }],
+                    "associatedDrug#2":[{
+                        "name":"somethingElse2",
+                        "dose":"2 Time",
+                        "strength":"2500 mg"
+                    }]
+                }]
+            }]
+        }],
+        "labs":[{
+            "missing_field": "missing_value"
+        }]
+    }]
+}]}
+
+### Question Based On array_walk 
+```
+<?php
+
+$str = "HHHooooppppiiiinnnnggggg tttoooo bbbbeeeee BBBBeeeeessssstttttt CCCCCooooodddddeeeerrrrr";
+$explode = explode(" ",$str);
+echo '<pre>';
+print_r($explode);
+
+array_walk($explode, function($item){
+	echo join("",array_unique(str_split(" ".$item." ")));
+});
+
+
+echo '</pre>';
+
+$str = "1,2,3,4,5,6";
+
+$new_array = [];
+$exploded_arr = explode(",",$str);
+array_walk($exploded_arr, function($item){
+	global $new_array;
+
+	$cube = $item*$item*$item;
+	$new_array[]= $cube;
+});
+
+echo implode(",",$new_array);
+
+
+
+/*
+[0]='H'
+[1]='H' // --> [0] = ' H '
+[2]='H'
+[3]='o'// ---> [1] = 'o'
+[4]='o'
+[5]='o'
+
+*/
+
+
+
+
+```
+
+### Parsing using Parse-Json.php In php
+
+![screencapture-localhost-json-to-html-parse-json-php-2021-07-22-18_39_16 (1)](https://user-images.githubusercontent.com/55636215/126644401-98329ee0-0953-43d8-85cb-fb888fb1bcd3.png)
+
+```
+```
+<?php
+
+$jsondata = file_get_contents('data.json');
+$medicineData = json_decode($jsondata,true);
+$Problems = $medicineData['problems'];
+
+echo "<table border='1' width='100%' cellspacing='0' rules='all'>";
+echo "<thead style='background-color:black;color:white;'>";
+echo "<tr>";
+	echo "<th>#</th>";
+	echo "<th>Medical Problem (Diesease)</th>";
+	echo "<th>Medications Type</th>";
+	echo "<th>Medications Class</th>";
+	echo "<th>Lab Class</th>";
+	echo "<th>Lab Value</th>";
+	echo "<th>Drug Name</th>";
+	echo "<th>Medicine Name</th>";
+	echo "<th>Dose</th>";
+	echo "<th>Quantity</th>";
+echo "</tr>";
+echo '<thead>';
+
+$i=0;
+foreach ($Problems as $index => $medicine_arr) {
+	foreach ($medicine_arr as $medicine_index => $medicine_type) {
+		foreach($medicine_type as $type_keys){
+			foreach ($type_keys['medications'] as $medicationsClasses) {
+					foreach($medicationsClasses['medicationsClasses'] as $classname){
+						foreach ($classname as $classname_key => $classname_value) {
+							$classname = $classname_key;
+							foreach ($classname_value as $classname_index => $associated_drug) {
+								foreach ($associated_drug as $Drugname => $DrugMedicine) {
+									foreach ($DrugMedicine as $drug_index => $drug_name) {
+										foreach ($drug_name as $drug) {
+											echo "<tr>";
+											echo "<td style='background-color:black;color:white;'>".($i+1)."</td>";
+											echo "<td>".$medicine_index."</td>";
+											echo "<td>Medications</td>";
+											echo "<td>".$classname_key."</td>";
+											
+											echo "<td></td>";
+											echo "<td></td>";
+											echo "<td>".$Drugname."</td>";
+											echo "<td>".$drug_name['name']."</td>";
+											echo "<td>".$drug_name['dose']."</td>";
+											echo "<td>".$drug_name['strength']."</td>";
+											echo "</tr>";
+											$i++;
+										}
+									}
+								}
+							}
+						}
+					}
+			}
+			foreach ($type_keys['labs'] as $labs) {
+				foreach ($labs as $labs_key => $lab_value) {
+						echo "<tr style='background-color:yellow;'>";
+						echo "<td>".($i+1)."</td>";
+						echo "<td>".$medicine_index."</td>";
+						echo "<td>LAB</td>";
+						echo "<td>NA</td>";
+						echo "<td>".$labs_key."</td>";
+						echo "<td>".$lab_value."</td>";
+						echo "<td colspan='4'></td>";
+						$i++;
+				}
+
+
+			}
+
+		}//End of Block
+
+	}
+	
+}
+
+
+
+echo "</thead>";
+echo "<table>";
+
